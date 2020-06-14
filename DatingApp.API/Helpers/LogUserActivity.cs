@@ -11,13 +11,14 @@ namespace DatingApp.API.Helpers
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-           var resultContex = await next();
+            var resultContext = await next();
 
-           var UserId= int.Parse(resultContex.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-           var repo = resultContex.HttpContext.RequestServices.GetService<IDatingRepository>();
-           var user = await repo.GetUser(UserId);
-           user.LastActive = DateTime.Now;
-           await repo.SaveAll();
+            var userId = int.Parse(resultContext.HttpContext.User
+               .FindFirst(ClaimTypes.NameIdentifier).Value);
+            var repo = resultContext.HttpContext.RequestServices.GetService<IDatingRepository>();
+            var user = await repo.GetUser(userId);
+            user.LastActive = DateTime.Now;
+            await repo.SaveAll();
         }
     }
 }
