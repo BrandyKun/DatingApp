@@ -15,5 +15,9 @@ namespace DatingApp.API.Data
          Task<Photos> GetPhoto(int id);
          Task<Photos> GetMainPhotoForUser(int userId);
          Task<Like> GetLike(int userId, int recipientId);
+         Task<Message> GetMessage(int Id);
+         Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
+         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipient);
+         
     }
 }
