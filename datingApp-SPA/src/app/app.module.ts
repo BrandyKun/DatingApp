@@ -11,6 +11,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TimeagoModule } from 'ngx-timeago';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -38,6 +39,12 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { ListResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 
 
@@ -58,12 +65,18 @@ export function tokenGetter() {
       MemberDetailComponent,
       MemberEditComponent,
       MemberMessagesComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      AdminPanelComponent,
+      PhotoManagementComponent,
+      UserManagementComponent,
+      HasRoleDirective,
+      RolesModalComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ModalModule.forRoot(),
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
@@ -81,7 +94,7 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+})
    ],
    providers: [
       ErrorInterceptorProvider,
@@ -94,7 +107,11 @@ export function tokenGetter() {
       MemberEditResolver,
       PreventUnsavedChanges,
       ListResolver,
-      MessagesResolver
+      MessagesResolver,
+      AdminService
+   ],
+   entryComponents: [
+      RolesModalComponent
    ],
    bootstrap: [
       AppComponent
